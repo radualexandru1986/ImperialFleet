@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreShip extends FormRequest
+class UpdateShip extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,11 @@ class StoreShip extends FormRequest
         return [
             'name'    => 'required',
             'class'   => 'required',
-            'status'  => 'required',
+            'status' => 'required',
             'crew'    => 'required',
             'image'   => 'required',
-            'value'   => 'required'
+            'value'   => 'required',
+            'armaments'=> 'array'
         ];
     }
 }

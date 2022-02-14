@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('ships', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('armament_id');
-            $table->unsignedBigInteger('status_id');
+            $table->string('status');
             $table->string('name');
             $table->string('class');
             $table->integer('crew');

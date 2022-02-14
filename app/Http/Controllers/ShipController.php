@@ -4,18 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Contracts\ShipInterface;
 use App\Http\Requests\StoreShip;
+use App\Http\Requests\UpdateShip;
 use App\Models\Ship;
+use App\Refineries\ShipRefinery;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ShipController extends Controller
 {
+
     /**
+     * Returns all ships.
+     *
      * @return Collection
      */
-    public  function all(): Collection
+    public  function all(Request $request)
     {
-        return Ship::with();
+        return ShipRefinery::allShips($request->get('filters'));
+    }
+
+
+    /**
+     * Finds and returns a specific Ship
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function view($id): mixed
+    {
+        return ShipRefinery::with('armaments')->find($id);
     }
 
     /**
@@ -41,9 +59,10 @@ class ShipController extends Controller
      * @param ShipInterface $ship
      * @return JsonResponse
      */
-    public function edit($id, StoreShip $request, ShipInterface $ship): JsonResponse
+    public function update($id, UpdateShip $request, ShipInterface $ship): JsonResponse
     {
-        $updatedShip = $ship->refine($request->validated())->edit($id);
+
+        $updatedShip = $ship->refine($request->validated())->update($id);
 
         return response()->json([
             "success" => (bool)$updatedShip,

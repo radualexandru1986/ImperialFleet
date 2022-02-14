@@ -17,7 +17,8 @@ class ArmamentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' =>$this->faker->streetName,
+            'qty' => rand(50, 70),
         ];
     }
 }
